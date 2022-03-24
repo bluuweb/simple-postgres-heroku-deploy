@@ -5,8 +5,6 @@ const { getTodos } = require("./database");
 
 const app = express();
 
-app.use(express.static(__dirname + "/public"));
-
 const hbs = create({
     partialsDir: ["views/partials"],
     extname: ".hbs",
@@ -18,8 +16,10 @@ app.set("views", "./views");
 
 app.get("/", async (req, res) => {
     const { data } = await getTodos();
-    res.render("home", { data });
+    res.render("Home", { data });
 });
+
+app.use(express.static(__dirname + "/public"));
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, console.log("✔✔✔"));
