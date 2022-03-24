@@ -1,10 +1,11 @@
 require("dotenv").config();
+const { resolveObjectURL } = require("buffer");
 const { Pool } = require("pg");
 const connectionString =
     process.env.DATABASE_URL ||
     "postgresql://postgres:root@localhost:5432/simple_db";
 
-const pool = new Pool({ connectionString });
+const pool = new Pool({ connectionString, ssl: { rejectUnauthorized: false } });
 
 const getTodos = async () => {
     const client = await pool.connect();
